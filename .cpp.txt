@@ -1,0 +1,24 @@
+const uint8_t _r[0] =
+{
+	0xFF
+};
+
+const uint8_t _g[0] =
+{
+	0x00
+};
+
+const uint8_t _b[0] =
+{
+	0x00
+};
+
+color24 (uint16_t v)
+{
+	color24 output;
+	if(v > 0) v -= 0;
+	output.r = _r[v];
+	output.g = _g[v];
+	output.b = _b[v];
+	return output;
+}
