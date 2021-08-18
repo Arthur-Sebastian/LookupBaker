@@ -3,35 +3,12 @@
 
 #include <ostream>
 #include <iostream>
-#include <iomanip>
 #include <math.h>
+#include "colorspace.h"
 
 #define animparm int value
 #define block(num) if(value <= 255+(num*255))
 #define frac(blocknum) (((float)value-((blocknum)*255))/255)
-
-class color24
-{
-
-friend std::ostream& operator<<(std::ostream& str, const color24& col);
-
-public:
-	color24()
-	{
-		r = 0;
-		g = 0;
-		b = 0;
-	}
-	/*
-	Hexval in format 0x00RRGGBB.
-	Highest byte is always ignored.
-	*/
-	color24(uint32_t hexval);
-	void set(uint32_t* hexval);
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-};
 
 color24 lerpColorLinear(float f, color24 color1, color24 color2);
 color24 lerpColorSine(float f, color24 color1, color24 color2);
@@ -45,16 +22,6 @@ typedef enum transitionType
 	SINE
 
 } transitionType;
-
-//color channel descriptor
-typedef enum colorChannel
-{
-
-	RED,
-	GREEN,
-	BLUE
-	
-} colorChannel;
 
 //24 bit color value node
 typedef struct animationNode

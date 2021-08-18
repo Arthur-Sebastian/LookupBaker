@@ -2,39 +2,6 @@
 
 /*
 
-[COLOR24 CLASS IMPLEMENTATION]
-
-*/
-
-std::ostream& operator<<(std::ostream& str, const color24& col)
-{
-	//copy formatting
-	std::ios init(NULL);
-	init.copyfmt(str);
-	//output
-	str << "#"; 
-	str << std::uppercase << std::hex << std::setfill('0') << std::setw(6);
-	uint32_t tmp = (col.r << 16) | (col.g << 8) | col.b;
-	str << tmp;
-	//restore formatting
-	str.copyfmt(init);
-	return str;
-}
-
-color24::color24(uint32_t hexval)
-{
-	set(&hexval);
-}
-
-void color24::set(uint32_t* hexval)
-{
-	r = (uint8_t)((*hexval & 0x00FF0000) >> 16);
-	g = (uint8_t)((*hexval & 0x0000FF00) >> 8);
-	b = (uint8_t)(*hexval & 0x000000FF);
-}
-
-/*
-
 [ANIMATION CLASS IMPLEMENTATION]
 
 */
@@ -302,12 +269,11 @@ void animationDescriptor::outputBaked(std::ostream& str, colorChannel channel)
 color24 lerpColorLinear(float f, color24 color1, color24 color2)
 {
 	color24 output;
-	//caluclate color differences between 2 colors
-	//even if they are negative
+	//calculate color differences
 	int rdiff = color2.r - color1.r;
 	int gdiff = color2.g - color1.g;
 	int bdiff = color2.b - color1.b;
-	//transform between color values on percentage 
+	//transform between color values on percentage
 	output.r = (uint8_t)(color1.r + (rdiff * f));
 	output.g = (uint8_t)(color1.g + (gdiff * f));
 	output.b = (uint8_t)(color1.b + (bdiff * f));
