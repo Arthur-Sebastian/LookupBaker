@@ -1,28 +1,32 @@
-#Function baker makefile
+#LookupBaker makefile
 #(C) Arthur Sebastian Miller 2021
 
+#object file directory
+ODIR = build/object
+#executable build directory
+BDIR = build
+#compiler configuration
 CC = g++
-FLAGS = -Wall --static
+FLAGS = -Wall --static -Ilib
 
-default: baker
+default: LookupBaker
 
-#source files, tools
-main.o: main.cpp
-	$(CC) $(FLAGS) -o build/main.o -c main.cpp
+#main source
+main.o: src/main.cpp
+	$(CC) $(FLAGS) -o $(ODIR)/$@ -c src/main.cpp
+#file dependencies
 toolkit.o: lib/animtools.cpp
-	$(CC) $(FLAGS) -o build/toolkit.o -c lib/animtools.cpp
+	$(CC) $(FLAGS) -o $(ODIR)/$@ -c lib/animtools.cpp
 colorspace.o: lib/colorspace.cpp
-	$(CC) $(FLAGS) -o build/colorspace.o -c lib/colorspace.cpp
-	
+	$(CC) $(FLAGS) -o $(ODIR)/$@ -c lib/colorspace.cpp
+
 #build targets
-baker: main.o toolkit.o colorspace.o
-	$(CC) $(FLAGS) -o build/LookupBaker build/main.o build/toolkit.o build/colorspace.o
+LookupBaker: main.o toolkit.o colorspace.o
+	$(CC) $(FLAGS) -o $(BDIR)/$@ $(ODIR)/main.o $(ODIR)/toolkit.o $(ODIR)/colorspace.o
 	@echo "Build completed!"
 clean:
-	$(RM) build/*.o build/*~
-	clear
-	@echo "Build directory purged!"
-run: baker
-	clear
+	$(RM) $(ODIR)/*.o $(BDIR)/*~
+	@echo "Build objects purged!"
+run: LookupBaker
 	@echo "Running the build!"
-	./build/LookupBaker
+	./$(BDIR)/LookupBaker

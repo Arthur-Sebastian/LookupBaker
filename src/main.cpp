@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "lib/animtools.h"
+#include "animtools.h"
 
 void programHeader();
 void fileWriter(animationDescriptor&);
