@@ -15,14 +15,14 @@ default: LookupBaker
 main.o: src/main.cpp
 	$(CC) $(FLAGS) -o $(ODIR)/$@ -c src/main.cpp
 #file dependencies
-toolkit.o: lib/animtools.cpp
-	$(CC) $(FLAGS) -o $(ODIR)/$@ -c lib/animtools.cpp
-colorspace.o: lib/colorspace.cpp
-	$(CC) $(FLAGS) -o $(ODIR)/$@ -c lib/colorspace.cpp
+#toolkit.o: lib/animtools.cpp
+#	$(CC) $(FLAGS) -o $(ODIR)/$@ -c lib/animtools.cpp
+#colorspace.o: lib/colorspace.cpp
+#	$(CC) $(FLAGS) -o $(ODIR)/$@ -c lib/colorspace.cpp
 
 #build targets
-LookupBaker: main.o toolkit.o colorspace.o
-	$(CC) $(FLAGS) -o $(BDIR)/$@ $(ODIR)/main.o $(ODIR)/toolkit.o $(ODIR)/colorspace.o
+LookupBaker: main.o
+	$(CC) $(FLAGS) -o $(BDIR)/$@ $(ODIR)/main.o
 	@echo "Build completed!"
 clean:
 	$(RM) $(ODIR)/*.o $(BDIR)/*~
