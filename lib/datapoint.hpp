@@ -29,8 +29,14 @@ DataPoint<Type>::DataPoint(Type value) {
 
 template <typename Type>
 Type DataPoint<Type>::interpolate(DataPoint<Type> target, float progression) const {
+	if(progression == 1.0f) {
+		return target._value;
+	}
+	if(progression == 0.0f) {
+		return _value;
+	}
 	Type diff = target._value - _value;
-	return _value + (diff * progression);
+	return (_value * (1.0f - progression)) + (diff * progression);
 }
 
 #endif

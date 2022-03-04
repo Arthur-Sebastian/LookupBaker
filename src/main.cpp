@@ -5,15 +5,49 @@
 #include "datapoint.hpp"
 #include "color.hpp"
 
+void command(std::string, bool*);
+void clear();
 
 int main() {
-	ColorRGB<uint8_t> red(0xFF, 0, 0);
-	ColorRGB<uint8_t> blue(0, 0, 0xFF);
-	DataPoint<ColorRGB<uint8_t>> point(red);
-	DataPoint<ColorRGB<uint8_t>> point2(blue);
-	point.interpolate(point2, 0.5f).print();
-	point.interpolate(point2, 0.0f).print();
-	point.interpolate(point2, 1.0f).print();
+	bool loopctl = true;
+	clear();
+	while(loopctl) {
+		std::string cmd;
+		cmd.clear();
+		std::cout << "> ";
+		std::getline(std::cin, cmd);
+		command(cmd, &loopctl);
+	}
+}
+
+void clear() {
+	system("clear");
+	std::cout 
+	<< "[*] LookupBaker V1.1 [*]\n"
+	<< "  (C) A.S. Miller 2022\n";
+	std::cout << "Type 'help' or '?' for a list of commands.\n";
+}
+
+void command(std::string cmd, bool* ctl) {
+	char* com, par;
+	if(cmd == "help" || cmd == "?") {
+		std::cout << "Command reference: \n"
+		<< "1. help - displays this list\n"
+		<< "2. exit - ends the program\n"
+		<< "3. clear - clears the command line\n"
+		<< "4. setup - starts settings wizard\n";
+		return;
+	}
+	else if(cmd == "exit") {
+		*ctl = false;
+	}
+	else if(cmd == "clear") {
+		clear();
+	}
+	else {
+		std::cout << "Invalid command. "
+		<< "Type 'help' or '?' for a list of commands.\n";
+	}
 }
 
 //void fileWriter(animationDescriptor& animref) {
